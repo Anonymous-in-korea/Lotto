@@ -1,0 +1,42 @@
+package LottoGame;
+
+public class Lotto {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int choice;
+		LottoNum lotto = new LottoNum();
+		ManualLotto manual = new ManualLotto();
+		AutoLotto auto = new AutoLotto();
+		ResetOrEnd roe = new ResetOrEnd();
+
+		while (true) {
+			
+		choice = lotto.choiceStyle();
+
+			switch (choice) {
+
+			case 1:
+				manual.manualLotto();
+				break;
+
+			case 2:
+				auto.autoLotto();
+				break;
+
+			case 9://Reset
+				roe.reset();
+				break;
+				
+			case 0://End
+				roe.end();
+				break;
+
+			}// switch
+
+		} // while
+
+	}// main
+
+}// class
