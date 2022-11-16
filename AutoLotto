@@ -1,0 +1,150 @@
+package LottoGame;
+
+import java.util.Scanner;
+
+public class AutoLotto extends LottoNum {
+
+	Scanner sc = new Scanner(System.in);
+	int cost;
+	int mynum, count, jnum, linenum, bonus;
+	int num = 1;
+	int[] Lotto = new int[45];
+	int[][] myLotto = new int[100][6];
+	int[] match = new int[100];
+	int[] manual = new int[45];
+
+	AutoLotto() {
+	}
+
+	void autoLotto() {
+
+		// 추첨로또번호생성
+		for (int i = 0; i < Lotto.length; i++) {
+			Lotto[i] = i + 1;
+		}
+
+		for (int i = 0; i < 500; i++) {
+			rn = (int) (Math.random() * 45);
+			temp = Lotto[0];
+			Lotto[0] = Lotto[rn];
+			Lotto[rn] = temp;
+		}
+
+		System.out.println("[[ 로또 추첨번호 ]]");
+		for (int i = 0; i < 6; i++) {
+			System.out.print(Lotto[i] + "\t");
+		}
+		System.out.println("보너스번호 " + Lotto[6]);
+		System.out.println();
+
+		// 자동로또번호생성
+		for (int i = 0; i < manual.length; i++) {
+			manual[i] = i + 1;
+		}
+
+		for (int i = 0; i < 500; i++) {
+			rn = (int) (Math.random() * 45);
+			temp = manual[0];
+			manual[0] = manual[rn];
+			manual[rn] = temp;
+		}
+
+		System.out.println("구매할 로또게임(줄)의 수를 입력해주세요. < 0을 입력하시면 로또구매를 완료합니다. >");
+		num = sc.nextInt();
+		cost = 1000;
+		if (num == 0) {
+			System.out.println("로또구매를 완료했습니다.");
+		}
+		for (int i = 0; i < num; i++) {
+			for (int j = 0; j < 6; j++) {
+				jnum = (int)(Math.random()*45);
+				myLotto[i][j] = manual[jnum];
+			}
+		}
+		System.out.println(num + "게임(줄) 구매가 완료되었습니다.");
+		System.out.println("결제금액 : " + (cost * num) + "원");
+
+		// 로또번호확인
+		System.out.println("결과추첨을 시작합니다.");
+
+		// 내 로또번호 확인
+		System.out.println("[[ 나의 로또번호 ]]");
+		for (int i = 0; i < num; i++) {
+			for (int j = 0; j < 6; j++) {
+				System.out.print(myLotto[i][j] + "\t");
+			}
+			System.out.println();
+		}
+		System.out.println();
+
+		// 당첨번호 갯수확인
+		for (int i = 0; i < num; i++) {
+			for (int j = 0; j < 6; j++) {
+				if (myLotto[i][j] == Lotto[j]) {
+					match[count] = myLotto[i][j];
+					count++;
+				}
+				if (myLotto[i][j] == Lotto[6]) {
+					match[6] = Lotto[6];
+					bonus = 1;
+				}
+			} // for_j
+		} // fot_i
+
+		// 당첨번호 갯수, 번호출력 및 등수출력
+		if (match[6] == 0) {
+			System.out.print("당첨번호 갯수 : " + count + "개");
+		} else {
+			System.out.print("당첨번호 갯수 : " + count + "개, 보너스번호 : " + bonus + "개");
+		}
+		System.out.println();
+		System.out.print("당첨번호 : ");
+		if (count == 0 && match[6] == 0) {
+			System.out.println("당첨번호가 없습니다.");
+		} else if (count == 0 && match[6] == Lotto[6]) {
+			System.out.println("보너스번호만 일치합니다. " + match[6]);
+		} else {
+			for (int i = 0; i < count; i++) {
+				System.out.print(match[i] + "\t");
+			}
+			System.out.println("보너스번호 : " + match[6]);
+		}
+
+		if (count == 5 && bonus == 1) {
+			count = 7;
+		}
+
+		switch (count) {
+
+		case 7:
+			System.out.println("2등입니다.");
+			break;
+
+		case 6:
+			System.out.println("1등입니다.");
+			break;
+
+		case 5:
+			System.out.println("3등입니다.");
+			break;
+
+		case 4:
+			System.out.println("4등입니다.");
+			break;
+
+		case 3:
+			System.out.println("5등입니다.");
+			break;
+
+		case 2:
+		case 1:
+		case 0:
+			System.out.println("꽝입니다.");
+			break;
+
+		}// switch
+		System.out.println();
+
+	}// void
+
+}// class
