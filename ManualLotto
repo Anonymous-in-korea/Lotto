@@ -83,6 +83,8 @@ public class ManualLotto extends LottoNum {
 		// j가 6개 숫자씩 나오도록 되어있고
 		// 6개 숫자가 출력완료될 때 마다 당첨등수와 당첨번호가 출력되게 해놓음
 		// 출력은 다 잘되는데, 당첨번호걸러내기부터 꼬임.....
+		// 당첨번호걸러내기에서 w가 6개 출력될 때 마다 count가 끊겨서
+		// 로또 줄 마다 등수, 당첨번호가 출력되어야하는데.....
 		for ( int i = 0; i < num / 6; i++ ) {
 			for ( int j = 0; j < num / (num / 6); j++ ) {
 				System.out.print(mylotto[i][j] + "\t");
