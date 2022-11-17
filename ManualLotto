@@ -1,17 +1,14 @@
 package LottoGame;
 
-import java.util.Scanner;
-
 public class ManualLotto extends LottoNum {
 
-	Scanner sc = new Scanner(System.in);
-	int cost;
-	int mynum, count, linenum, bonus;
-	int num = 1;
-	int[] Lotto = new int[45];
-	int[][] myLotto = new int[100][6];
-	int[] match = new int[100];
-	int[] manual = new int[45];
+	int rn, temp, mynum, cost, count, bonus;
+	//rn, temp(랜덤번호출력용)  mynum(수동로또번호입력)  cost(로또1줄가격)
+	//count(일치하는로또번호갯수)  bonus(보너스번호일치확인용)
+	int num = 1; //1줄 입력때마다 1씩 증가, myLotto의 행 증가
+	int[] Lotto = new int[45]; //기준 로또번호배열
+	int[][] myLotto = new int[100][6]; //수동으로 입력하는 로또배열
+	int[] match = new int[100]; //일치하는 로또번호 저장배열
 
 	ManualLotto() {
 	}
@@ -144,5 +141,5 @@ public class ManualLotto extends LottoNum {
 		System.out.println();
 
 	}// void
-
+	
 }// class
