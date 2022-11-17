@@ -5,14 +5,9 @@ import java.util.Scanner;
 public class LottoNum {
 
 	Scanner sc = new Scanner(System.in);
-	int temp, rn, choice;
+	int choice;
 	
 	LottoNum(){}
-	
-	LottoNum(int temp, int rn) {
-		this.temp = temp;
-		this.rn = rn;
-	}
 	
 	int choiceStyle() {
 		
