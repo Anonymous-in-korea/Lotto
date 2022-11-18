@@ -1,18 +1,13 @@
-package Lotto;
+package LottoGame;
 
 public class ManualLotto extends LottoNum {
 
 	int rn, temp, lnum, price, input, count, bonus;
-	//rn, temp(랜덤번호출력용)  lnum(수동로또번호입력)  price(로또1줄가격)
-	//input(match배열 수 증가용)  count(일치하는로또번호갯수)  bonus(보너스번호일치확인용)
-	int num = 1; //1줄 입력때마다 1씩 증가, manual배열의 수 증가
-	int[] lotto = new int[45]; //기준 로또번호배열
-	int[] manual = new int[600]; //수동입력 로또배열
-	int[][] mylotto = new int[100][6]; //출력용 2차배열
-	int[] match = new int[600]; //일치하는 로또번호 저장배열
+	int num = 1;
+	int[] lotto = new int[45];
+	int[] manual = new int[60];
+	int[] match = new int[60];
 
-	//해결안되는 부분은 82줄 수동로또번호출력부터 해결이 안됨
-	
 	ManualLotto() {
 	}
 
@@ -41,6 +36,7 @@ public class ManualLotto extends LottoNum {
 		// 수동 로또번호 입력
 		System.out.println("로또번호 6자리를 입력해주세요. < 1~45사이 숫자 >");
 		System.out.println("< 0을 입력하시면 로또구매를 그만합니다. >");
+
 		for (int i = 0; i < num; i++) {
 
 			lnum = sc.nextInt();
@@ -50,19 +46,19 @@ public class ManualLotto extends LottoNum {
 				System.out.println("추가구매하려면 6자리 숫자를 입력해주세요. < 1~45사이 숫자 > < 0을 입력하시면 로또구매를 그만합니다. >");
 				price += 1000;
 			}
-			
+
 			if (lnum == 0) {
 				break;
 			}
-			
+
 			manual[i] = lnum;
 
 			num++;// manual배열에 입력된 숫자의 수
 
 		} // for
-		num--; //입력을 끝내기위해 0을 입력하는 순간 num에 1이 더해져서 num--를 해야 입력한 수 만큼의 num 숫자가 만들어짐.
-		
-		System.out.println(num);//num번호 확인용
+		num--; // 입력을 끝내기위해 0을 입력하는 순간 num에 1이 더해져서 num--를 해야 입력한 수 만큼의 num 숫자가 만들어짐.
+
+		System.out.println(num);// num번호 확인용
 
 		if (lnum == 0) {
 			System.out.println("로또구매가 완료되었습니다. 구매 로또(줄) 수 : " + (num / 6) + "줄");
@@ -71,104 +67,94 @@ public class ManualLotto extends LottoNum {
 
 		System.out.println("[[ 추첨결과 ]]");
 
-		// 2차배열에 집어넣기
-		for ( int i = 0; i < num / 6; i++ ) {
-			for ( int j = 0; j < num / (num / 6); j++ ) {
-				mylotto[i][j] = manual[input];
+		for (int q = 0; q < num / 6; q++) {
+
+			// 수로또번호출력
+			for (int i = 0; i < 6; i++) {
+				System.out.print(manual[input] + "\t");
 				input++;
 			}
-		}
-		
-		// 수동로또번호 출력
-		// j가 6개 숫자씩 나오도록 되어있고
-		// 6개 숫자가 출력완료될 때 마다 당첨등수와 당첨번호가 출력되게 해놓음
-		// 출력은 다 잘되는데, 당첨번호걸러내기부터 꼬임.....
-		// 당첨번호걸러내기에서 w가 6개 출력될 때 마다 count가 끊겨서
-		// 로또 줄 마다 등수, 당첨번호가 출력되어야하는데.....
-		for ( int i = 0; i < num / 6; i++ ) {
-			for ( int j = 0; j < num / (num / 6); j++ ) {
-				System.out.print(mylotto[i][j] + "\t");
-			}//for_j
 			
 			// 로또당첨번호 걸러내기
-			for (int q = 0; q < num / 6; q++) {
-				for (int w = 0; w < num / (num / 6); w++) {
-					if (mylotto[q][w] == lotto[w]) {
-						match[count] = mylotto[q][w];
+			for (int i = q * (input - 6 * q); i < input; i++) {
+				for ( int j = 0; j < 6; j++ ) {
+					if (manual[i] == lotto[j]) {
+						match[count] = lotto[j];
 						count++;
-					} else if (mylotto[q][w] == lotto[6]) {
+						break;
+					} 
+					if (manual[i] == lotto[6]) {
 						match[6] = lotto[6];
 						bonus = 1;
 					}
-				}//for_w
-			}//for_q
-			
+				}
+			}
+
+			// 당첨번호출력
+			System.out.print("당첨번호 : ");
+			if (count >= 1 && bonus == 0) {
+				for (int i = 0; i < count; i++) {
+					System.out.print(match[i] + "  ");
+				}
+
+			} else if (count >= 1 && bonus == 1) {
+				for (int i = 0; i < count; i++) {
+					System.out.print(match[i] + "  ");
+				}
+				System.out.print("+" + match[6] + "  ");
+
+			} else if (count == 0 && bonus == 1) {
+				System.out.print("+" + match[6] + "  ");
+
+			} else if (count == 0 && bonus == 0) {
+				System.out.print("없습니다.  ");
+			}
+
 			// 등수출력
 			if (count == 5 && bonus == 1) {
 				count = 7;
 			}
 			switch (count) {
-			
+
 			case 7:
-				System.out.print("2등에 당첨되었습니다.  ");
+				System.out.println("2등에 당첨되었습니다.  ");
 				break;
-				
+
 			case 6:
-				System.out.print("1등에 당첨되었습니다.  ");
+				System.out.println("1등에 당첨되었습니다.  ");
 				break;
-				
+
 			case 5:
-				System.out.print("3등에 당첨되었습니다.  ");
+				System.out.println("3등에 당첨되었습니다.  ");
 				break;
-				
+
 			case 4:
-				System.out.print("4등에 당첨되었습니다.  ");
+				System.out.println("4등에 당첨되었습니다.  ");
 				break;
-				
+
 			case 3:
-				System.out.print("5등에 당첨되었습니다.  ");
+				System.out.println("5등에 당첨되었습니다.  ");
 				break;
-				
+
 			case 2:
 			case 1:
 			case 0:
-				System.out.print("노당첨  ");
+				System.out.println("노당첨  ");
 				break;
-				
+
 			}// switch
-			
-			// 당첨번호출력
-			System.out.print("당첨번호 : ");
-			if (count >= 1 && bonus == 0) {
-				for (int q = 0; q < count; q++) {
-					System.out.print(match[q] + "  ");
-				}
-			} else if (count >= 1 && bonus == 1) {
-				for (int q = 0; q < count; q++) {
-					System.out.print(match[q] + "  ");
-				}
-				System.out.print("+" + match[6]);
-			} else if (count == 0 && bonus == 1) {
-				System.out.print("+" + match[6]);
-			} else if (count == 0 && bonus == 0) {
-				System.out.print("없습니다.");
-			}
-			
+
 			// 5줄 이상 구매 시 5줄씩 끊어줌
-			System.out.println();
-			if (i % 5 == 4) {
+			if (q % 5 == 4) {
 				System.out.println();
 			}
-			
+
 			// 로또당첨번호 걸러내기 초기화
 			count = 0;
 			bonus = 0;
-			
-		}//for_i
+
+		} // for_q
 		System.out.println();
-		//초기화
-		num = 1;
-		input = 0;
 
 	}// void
 
