@@ -11,6 +11,7 @@ public class Lotto {
 		AutoLotto auto = new AutoLotto();
 		ResetOrEnd roe = new ResetOrEnd();
 
+		loop:
 		while (true) {
 			
 		choice = lotto.choiceStyle();
@@ -25,13 +26,9 @@ public class Lotto {
 				auto.autoLotto();
 				break;
 
-			case 9://Reset
-				roe.reset();
-				break;
-				
 			case 0://End
 				roe.end();
-				break;
+				break loop;
 
 			}// switch
 
