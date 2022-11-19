@@ -1,12 +1,6 @@
 package LottoGame;
 
-public class ManualLotto extends LottoNum {
-
-	int rn, temp, lnum, price, input, count, bonus;
-	int num = 1;
-	int[] lotto = new int[45];
-	int[] manual = new int[60];
-	int[] match = new int[60];
+public class ManualLotto extends LottoCommon {
 
 	ManualLotto() {
 	}
@@ -31,13 +25,12 @@ public class ManualLotto extends LottoNum {
 		}
 		System.out.println("+" + lotto[6]);
 		System.out.println();
-		// --------------------------------------------------
 
 		// 수동 로또번호 입력
 		System.out.println("로또번호 6자리를 입력해주세요. < 1~45사이 숫자 >");
 		System.out.println("< 0을 입력하시면 로또구매를 그만합니다. >");
 
-		for (int i = 0; i < num; i++) {
+		for (int i = 0; i < manualnum + 1; i++) {
 
 			lnum = sc.nextInt();
 
@@ -53,61 +46,40 @@ public class ManualLotto extends LottoNum {
 
 			manual[i] = lnum;
 
-			num++;// manual배열에 입력된 숫자의 수
+			manualnum++;// manual배열에 입력된 숫자의 수
 
 		} // for
-		num--; // 입력을 끝내기위해 0을 입력하는 순간 num에 1이 더해져서 num--를 해야 입력한 수 만큼의 num 숫자가 만들어짐.
 
-		System.out.println(num);// num번호 확인용
+		System.out.println(manualnum);// manualnum번호 확인용
 
 		if (lnum == 0) {
-			System.out.println("로또구매가 완료되었습니다. 구매 로또(줄) 수 : " + (num / 6) + "줄");
+			System.out.println("로또구매가 완료되었습니다. 구매 로또(줄) 수 : " + (manualnum / 6) + "줄");
 			System.out.println("결제금액 : " + price + "원");
 		}
 
 		System.out.println("[[ 추첨결과 ]]");
 
-		for (int q = 0; q < num / 6; q++) {
+		for (int q = 0; q < manualnum / 6; q++) {
 
-			// 수로또번호출력
+			// 수동로또번호출력
 			for (int i = 0; i < 6; i++) {
 				System.out.print(manual[input] + "\t");
 				input++;
 			}
-			
+
 			// 로또당첨번호 걸러내기
 			for (int i = q * (input - 6 * q); i < input; i++) {
-				for ( int j = 0; j < 6; j++ ) {
+				for (int j = 0; j < 6; j++) {
 					if (manual[i] == lotto[j]) {
-						match[count] = lotto[j];
+						manualmatch[count] = lotto[j];
 						count++;
 						break;
-					} 
+					}
 					if (manual[i] == lotto[6]) {
-						match[6] = lotto[6];
+						manualmatch[6] = lotto[6];
 						bonus = 1;
 					}
 				}
-			}
-
-			// 당첨번호출력
-			System.out.print("당첨번호 : ");
-			if (count >= 1 && bonus == 0) {
-				for (int i = 0; i < count; i++) {
-					System.out.print(match[i] + "  ");
-				}
-
-			} else if (count >= 1 && bonus == 1) {
-				for (int i = 0; i < count; i++) {
-					System.out.print(match[i] + "  ");
-				}
-				System.out.print("+" + match[6] + "  ");
-
-			} else if (count == 0 && bonus == 1) {
-				System.out.print("+" + match[6] + "  ");
-
-			} else if (count == 0 && bonus == 0) {
-				System.out.print("없습니다.  ");
 			}
 
 			// 등수출력
@@ -117,32 +89,56 @@ public class ManualLotto extends LottoNum {
 			switch (count) {
 
 			case 7:
-				System.out.println("2등에 당첨되었습니다.  ");
+				System.out.print("2등에 당첨되었습니다.  ");
 				break;
 
 			case 6:
-				System.out.println("1등에 당첨되었습니다.  ");
+				System.out.print("1등에 당첨되었습니다.  ");
 				break;
 
 			case 5:
-				System.out.println("3등에 당첨되었습니다.  ");
+				System.out.print("3등에 당첨되었습니다.  ");
 				break;
 
 			case 4:
-				System.out.println("4등에 당첨되었습니다.  ");
+				System.out.print("4등에 당첨되었습니다.  ");
 				break;
 
 			case 3:
-				System.out.println("5등에 당첨되었습니다.  ");
+				System.out.print("5등에 당첨되었습니다.  ");
 				break;
 
 			case 2:
 			case 1:
 			case 0:
-				System.out.println("노당첨  ");
+				System.out.print("노당첨  ");
 				break;
 
 			}// switch
+			if (count == 7) {// 2등출력용 카운트 초기화
+				count = 5;
+			}
+
+			// 당첨번호출력
+			System.out.print("당첨번호 : ");
+			if (count >= 1 && bonus == 0) {
+				for (int i = 0; i < count; i++) {
+					System.out.print(manualmatch[i] + "  ");
+				}
+
+			} else if (count >= 1 && bonus == 1) {
+				for (int i = 0; i < count; i++) {
+					System.out.print(manualmatch[i] + "  ");
+				}
+				System.out.print("+" + manualmatch[6] + "  ");
+
+			} else if (count == 0 && bonus == 1) {
+				System.out.print("+" + manualmatch[6] + "  ");
+
+			} else if (count == 0 && bonus == 0) {
+				System.out.print("없습니다.  ");
+			}
+			System.out.println();
 
 			// 5줄 이상 구매 시 5줄씩 끊어줌
 			if (q % 5 == 4) {
@@ -154,9 +150,11 @@ public class ManualLotto extends LottoNum {
 			bonus = 0;
 
 		} // for_q
+		//입력값 초기화
+		input = 0;
+		manualnum = 0;
 		System.out.println();
 
 	}// void
 
 }// class
-
