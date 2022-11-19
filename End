@@ -1,12 +1,14 @@
 package LottoGame;
 
-public class ResetOrEnd {
+public class End extends LottoCommon {
 
-	ResetOrEnd(){}
+	End(){}
 	
-	void end() {
+	void End() {
+		
 		System.out.println("로또추첨을 종료합니다.");
 		return;
-	}// void
+		
+	}//end
 	
 }//class
