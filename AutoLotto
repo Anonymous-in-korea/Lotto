@@ -1,11 +1,6 @@
 package LottoGame;
 
-public class AutoLotto extends LottoNum {
-
-	int rn, temp, num, price, count, bonus;
-	int[] lotto = new int[45];
-	int[] auto = new int[45];
-	int[] match = new int[45];
+public class AutoLotto extends LottoCommon {
 
 	AutoLotto() {
 	}
@@ -32,21 +27,21 @@ public class AutoLotto extends LottoNum {
 		System.out.println();
 
 		System.out.println("구매할 로또게임(줄)의 수를 입력해주세요. < 0을 입력하시면 로또구매를 끝냅니다. >");
-		num = sc.nextInt();
-		if (num == 0) {
+		autonum = sc.nextInt();
+		if (autonum == 0) {
 			System.out.println("로또구매를 그만합니다.");
 			System.out.println();
 			return;
 		}
-		System.out.println("로또 " + num + "게임(줄) 구매가 완료되었습니다.");
+		System.out.println("로또 " + autonum + "게임(줄) 구매가 완료되었습니다.");
 		price = 1000;
-		System.out.println("결제금액 : " + num * price + "원");
+		System.out.println("결제금액 : " + autonum * price + "원");
 		System.out.println();
 		System.out.println("결과추첨을 시작합니다.");
 		System.out.println("[[ 나의 로또번호 ]]");
 
 		// 횟수에 따른 반복
-		for (int q = 0; q < num; q++) {
+		for (int q = 0; q < autonum; q++) {
 
 			// 자동로또번호생성
 			for (int i = 0; i < auto.length; i++) {
@@ -69,34 +64,14 @@ public class AutoLotto extends LottoNum {
 			for (int i = 0; i < 6; i++) {
 				for (int j = 0; j < 6; j++) {
 					if (auto[i] == lotto[j]) {
-						match[count] = auto[i];
+						automatch[count] = auto[i];
 						count++;
 						break;
 					} else if (auto[i] == lotto[6]) {
-						match[6] = lotto[6];
+						automatch[6] = lotto[6];
 						bonus = 1;
 					}
 				}
-			}
-
-			// 당첨번호출력
-			System.out.print("당첨번호 : ");
-			if (count >= 1 && bonus == 0) {
-				for (int i = 0; i < count; i++) {
-					System.out.print(match[i] + "  ");
-				}
-			
-			} else if (count >= 1 && bonus == 1) {
-				for (int i = 0; i < count; i++) {
-					System.out.print(match[i] + "  ");
-				}
-				System.out.print("+" + match[6]);
-			
-			} else if (count == 0 && bonus == 1) {
-				System.out.print("+" + match[6]);
-			
-			} else if (count == 0 && bonus == 0) {
-				System.out.print("없습니다.");
 			}
 
 			// 등수출력
@@ -132,6 +107,30 @@ public class AutoLotto extends LottoNum {
 				break;
 
 			}// switch
+			if (count == 7) {// 2등출력용 카운트 초기화
+				count = 5;
+			}
+
+			// 당첨번호출력
+			System.out.print("당첨번호 : ");
+			if (count >= 1 && bonus == 0) {
+				for (int i = 0; i < count; i++) {
+					System.out.print(automatch[i] + "  ");
+				}
+
+			} else if (count >= 1 && bonus == 1) {
+				for (int i = 0; i < count; i++) {
+					System.out.print(automatch[i] + "  ");
+				}
+				System.out.print("+" + automatch[6]);
+
+			} else if (count == 0 && bonus == 1) {
+				System.out.print("+" + automatch[6]);
+
+			} else if (count == 0 && bonus == 0) {
+				System.out.print("없습니다.");
+			}
+			System.out.println();
 
 			// 5줄 이상 구매 시 5줄씩 끊어줌
 			System.out.println();
@@ -148,4 +147,3 @@ public class AutoLotto extends LottoNum {
 	}// void
 
 }// class
-
