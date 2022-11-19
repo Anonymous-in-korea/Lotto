@@ -6,7 +6,7 @@ public class Lotto {
 		// TODO Auto-generated method stub
 
 		int choice;
-		LottoNum lotto = new LottoNum();
+		LottoCommon lotto = new LottoCommon();
 		ManualLotto manual = new ManualLotto();
 		AutoLotto auto = new AutoLotto();
 		ResetOrEnd roe = new ResetOrEnd();
@@ -25,9 +25,9 @@ public class Lotto {
 			case 2:
 				auto.autoLotto();
 				break;
-
+				
 			case 0://End
-				roe.end();
+				roe.End();
 				break loop;
 
 			}// switch
