@@ -2,12 +2,17 @@ package LottoGame;
 
 import java.util.Scanner;
 
-public class LottoNum {
+public class LottoCommon {
 
 	Scanner sc = new Scanner(System.in);
-	int choice;
+	int choice, rn, temp, price, count, bonus, lnum, input, manualnum, autonum;
+	int[] lotto = new int[45];
+	int[] manual = new int[60];
+	int[] manualmatch = new int[60];
+	int[] auto = new int[45];
+	int[] automatch = new int[45];
 	
-	LottoNum(){}
+	LottoCommon(){}
 	
 	int choiceStyle() {
 		
@@ -21,6 +26,6 @@ public class LottoNum {
 		System.out.println();
 		
 		return choice;
-	}//void
+	}//int_choiceStyle
 	
 }//class
