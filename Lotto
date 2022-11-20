@@ -5,17 +5,17 @@ public class Lotto {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		int choice;
 		LottoCommon lotto = new LottoCommon();
 		ManualLotto manual = new ManualLotto();
 		AutoLotto auto = new AutoLotto();
-		ResetOrEnd roe = new ResetOrEnd();
+		StartAndEnd sae = new StartAndEnd();
+		int choice;
 
 		loop:
 		while (true) {
 			
 		choice = lotto.choiceStyle();
-
+		
 			switch (choice) {
 
 			case 1:
@@ -26,8 +26,16 @@ public class Lotto {
 				auto.autoLotto();
 				break;
 				
+			case 3://결과확인
+				
+				break;
+				
+			case 9://리셋 및 재시작
+				
+				break;
+				
 			case 0://End
-				roe.End();
+				sae.End();
 				break loop;
 
 			}// switch
