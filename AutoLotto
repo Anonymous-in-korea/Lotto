@@ -7,24 +7,8 @@ public class AutoLotto extends LottoCommon {
 
 	void autoLotto() {
 
-		// 로또번호생성
-		for (int i = 0; i < lotto.length; i++) {
-			lotto[i] = i + 1;
-		}
-
-		for (int i = 0; i < 500; i++) {
-			rn = (int) (Math.random() * 45);
-			temp = lotto[0];
-			lotto[0] = lotto[rn];
-			lotto[rn] = temp;
-		}
-
-		System.out.println("[[ 로또 추첨번호 ]]");
-		for (int i = 0; i < 6; i++) {
-			System.out.print(lotto[i] + "\t");
-		}
-		System.out.println("+" + lotto[6]);
-		System.out.println();
+		// LottoCommon class에서 생성된 로또추첨번호 가져오기
+		int[] lotto = lotto();
 
 		System.out.println("구매할 로또게임(줄)의 수를 입력해주세요. < 0을 입력하시면 로또구매를 끝냅니다. >");
 		autonum = sc.nextInt();
@@ -37,6 +21,8 @@ public class AutoLotto extends LottoCommon {
 		price = 1000;
 		System.out.println("결제금액 : " + autonum * price + "원");
 		System.out.println();
+		
+		
 		System.out.println("결과추첨을 시작합니다.");
 		System.out.println("[[ 나의 로또번호 ]]");
 
@@ -75,21 +61,18 @@ public class AutoLotto extends LottoCommon {
 			}
 
 			// 등수출력
-			if (count == 5 && bonus == 1) {
-				count = 7;
-			}
 			switch (count) {
-
-			case 7:
-				System.out.print("2등에 당첨되었습니다.  ");
-				break;
 
 			case 6:
 				System.out.print("1등에 당첨되었습니다.  ");
 				break;
 
 			case 5:
-				System.out.print("3등에 당첨되었습니다.  ");
+				if (bonus == 1) {
+					System.out.print("2등에 당첨되었습니다.  ");
+				} else {
+					System.out.print("3등에 당첨되었습니다.  ");
+				}
 				break;
 
 			case 4:
@@ -107,9 +90,6 @@ public class AutoLotto extends LottoCommon {
 				break;
 
 			}// switch
-			if (count == 7) {// 2등출력용 카운트 초기화
-				count = 5;
-			}
 
 			// 당첨번호출력
 			System.out.print("당첨번호 : ");
