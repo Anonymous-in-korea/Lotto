@@ -7,24 +7,8 @@ public class ManualLotto extends LottoCommon {
 
 	void manualLotto() {
 
-		// 로또 추첨번호 생성
-		for (int i = 0; i < lotto.length; i++) {
-			lotto[i] = i + 1;
-		}
-
-		for (int i = 0; i < 500; i++) {
-			rn = (int) (Math.random() * 45);
-			temp = lotto[0];
-			lotto[0] = lotto[rn];
-			lotto[rn] = temp;
-		}
-
-		System.out.println("[[ 로또 추첨번호 ]]");
-		for (int i = 0; i < 6; i++) {
-			System.out.print(lotto[i] + "\t");
-		}
-		System.out.println("+" + lotto[6]);
-		System.out.println();
+		// LottoCommon class에서 생성된 로또추첨번호 가져오기
+		int[] lotto = lotto();
 
 		// 수동 로또번호 입력
 		System.out.println("로또번호 6자리를 입력해주세요. < 1~45사이 숫자 >");
@@ -32,11 +16,13 @@ public class ManualLotto extends LottoCommon {
 
 		for (int i = 0; i < manualnum + 1; i++) {
 
+			System.out.print( (manualnum / 6 + 1) + "번째 줄 숫자입력 : ");
 			lnum = sc.nextInt();
 
 			if (i % 6 == 5) {
 				System.out.println("6자리 입력이 완료되었습니다.");
-				System.out.println("추가구매하려면 6자리 숫자를 입력해주세요. < 1~45사이 숫자 > < 0을 입력하시면 로또구매를 그만합니다. >");
+				System.out.println("추가구매하려면 6자리 숫자를 입력해주세요. < 1~45사이 숫자 >");
+				System.out.println("< 0을 입력하시면 로또구매를 그만하고 결과를 확인합니다. >");
 				price += 1000;
 			}
 
@@ -49,8 +35,6 @@ public class ManualLotto extends LottoCommon {
 			manualnum++;// manual배열에 입력된 숫자의 수
 
 		} // for
-
-		System.out.println(manualnum);// manualnum번호 확인용
 
 		if (lnum == 0) {
 			System.out.println("로또구매가 완료되었습니다. 구매 로또(줄) 수 : " + (manualnum / 6) + "줄");
@@ -83,21 +67,18 @@ public class ManualLotto extends LottoCommon {
 			}
 
 			// 등수출력
-			if (count == 5 && bonus == 1) {
-				count = 7;
-			}
 			switch (count) {
-
-			case 7:
-				System.out.print("2등에 당첨되었습니다.  ");
-				break;
 
 			case 6:
 				System.out.print("1등에 당첨되었습니다.  ");
 				break;
 
 			case 5:
-				System.out.print("3등에 당첨되었습니다.  ");
+				if (bonus == 1) {
+					System.out.print("2등에 당첨되었습니다.  ");
+				} else {
+					System.out.print("3등에 당첨되었습니다.  ");
+				}
 				break;
 
 			case 4:
@@ -115,9 +96,6 @@ public class ManualLotto extends LottoCommon {
 				break;
 
 			}// switch
-			if (count == 7) {// 2등출력용 카운트 초기화
-				count = 5;
-			}
 
 			// 당첨번호출력
 			System.out.print("당첨번호 : ");
@@ -130,13 +108,13 @@ public class ManualLotto extends LottoCommon {
 				for (int i = 0; i < count; i++) {
 					System.out.print(manualmatch[i] + "  ");
 				}
-				System.out.print("+" + manualmatch[6] + "  ");
+				System.out.print("+" + manualmatch[6]);
 
 			} else if (count == 0 && bonus == 1) {
-				System.out.print("+" + manualmatch[6] + "  ");
+				System.out.print("+" + manualmatch[6]);
 
 			} else if (count == 0 && bonus == 0) {
-				System.out.print("없습니다.  ");
+				System.out.print("없습니다.");
 			}
 			System.out.println();
 
@@ -148,11 +126,14 @@ public class ManualLotto extends LottoCommon {
 			// 로또당첨번호 걸러내기 초기화
 			count = 0;
 			bonus = 0;
-
+			
 		} // for_q
-		//입력값 초기화
+
+		// 입력값 초기화
 		input = 0;
+		price = 0;
 		manualnum = 0;
+
 		System.out.println();
 
 	}// void
