@@ -19,10 +19,8 @@ public class LottoCommon {
 		System.out.println("[[ 로또추첨 프로그램 ]]");
 		System.out.print("1. 수동로또구매\t");
 		System.out.print("2. 자동로또구매\t");
-		System.out.print("3. 로또결과확인\t");
-		System.out.print("9. 회차종료 초기화\t");
 		System.out.println("0. 추첨프로그램 종료");
-		System.out.println("-----------------------------------------");
+		System.out.println("-----------------------------------------------");
 		System.out.println("원하는 로또구매방식의 번호를 입력해주세요.");
 		choice = sc.nextInt();
 		System.out.println();
