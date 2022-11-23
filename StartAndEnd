@@ -2,20 +2,14 @@ package LottoGame;
 
 public class StartAndEnd extends LottoCommon {
 
-	StartAndEnd(){}
-	
-	void Start() {
-		
-		System.out.println("금주의 로또추첨이 완료되었습니다.");
-		
-		
-	}//start
-	
+	StartAndEnd() {
+	}
+
 	void End() {
-		
+
 		System.out.println("로또추첨 프로그램을 종료합니다.");
 		return;
-		
-	}//end
-	
-}//class
+
+	}// end
+
+}// class
